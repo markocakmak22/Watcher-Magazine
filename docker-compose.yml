@@ -8,3 +8,18 @@ services:
       - "8000:8000"
     volumes:
       - ./backend/watcher_magazine/:/watcher_magazine
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/watcher_magazine/:/watcher_magazine
+      - /watcher_magazine/node_modules
+    environment:
+      - WATCHPACK_POLLING=true
