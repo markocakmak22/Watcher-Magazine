@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -17,7 +18,7 @@ class Article(models.Model):
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, related_name='comments', on_delete=models.CASCADE, null=True)
-    author = models.CharField(max_length=100)
+    author = models.ForeignKey(CustomUser, related_name='comments', on_delete=models.CASCADE, null=True)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
