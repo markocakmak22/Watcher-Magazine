@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Watcher - Responsive Magazine Template</title>
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="76x76" href="%PUBLIC_URL%/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="%PUBLIC_URL%/images/favicon/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="%PUBLIC_URL%/images/favicon/favicon-16x16.png" sizes="16x16">
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.min.css">
+
+  <!-- Custom Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,400i,500,700,700i,900" rel="stylesheet">
+
+  <!-- Icon CSS -->
+  <link href="%PUBLIC_URL%/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Theme CSS -->
+  <link href="%PUBLIC_URL%/css/ts.css" rel="stylesheet">
+  <link href="%PUBLIC_URL%/js/slick/slick.css" rel="stylesheet">
+  <link href="%PUBLIC_URL%/js/lity/lity.min.css" rel="stylesheet">
+  <link href="%PUBLIC_URL%/css/style.css" rel="stylesheet">
+
+  <title>React App</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -39,5 +54,39 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+
+  <!-- jQuery -->
+  <script src="js/jquery.min.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="js/slick/slick.min.js"></script>
+  <script src="js/socialShare.min.js"></script>
+  <script src="js/jquery.simpleWeather.min.js"></script>
+  <script src="js/lity/lity.min.js"></script>
+
+  <!-- Theme JavaScript -->
+  <script src="js/main.js"></script>
+
+  <!-- Mailchimp Js -->
+  <script src="js/mc/jquery.ketchup.all.min.js"></script>
+  <script src="js/mc/main.js"></script>
+
+  <!-- Twitterfeed -->
+  <script src="js/tweecool.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#tweecool').tweecool({
+        //Change tweecool with touhr twitter username
+        username: 'tweecool',
+        profile_image: false,
+        limit: 3
+      });
+    });
+  </script>
+
+</body>
+
 </html>
