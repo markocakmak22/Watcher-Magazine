@@ -26,10 +26,11 @@ class ArticleSerializer(serializers.ModelSerializer):
         queryset=Category.objects.all(), source='category', write_only=True
     )
     comment_count = serializers.SerializerMethodField()
+    introduction = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = Article
-        fields = ['id', 'title', 'content', 'category', 'category_id', 'comment_count', 'created_at']
+        fields = ['id', 'title', 'introduction', 'content_paragraph_1', 'content_paragraph_2', 'content_paragraph_3', 'content_paragraph_4', 'category', 'category_id', 'comment_count', 'created_at', 'image', 'is_main', 'is_featured']
 
     def get_comment_count(self, obj):
         return obj.comments.count()

@@ -9,9 +9,17 @@ class Category(models.Model):
 
 class Article(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    introduction = models.TextField(null=True)
+    content_paragraph_1 = models.TextField(null=True, blank=True)
+    content_paragraph_2 = models.TextField(null=True, blank=True)
+    content_paragraph_3 = models.TextField(null=True, blank=True)
+    content_paragraph_4 = models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, related_name='articles', on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(null=True, blank=True)
+    is_main = models.BooleanField(default=False)
+    is_featured = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.title
