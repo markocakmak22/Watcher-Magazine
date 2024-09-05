@@ -20,6 +20,10 @@ function Header() {
         queryFn: fetchData,
     });
 
+    const capitalizeFirstLetter = (string: string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     return (
         <header className="header1 header-megamenu">
             <div className="topbar">
@@ -32,7 +36,7 @@ function Header() {
                         <div className="col-md-4 col-sm-4 col-xs-12">
                             <div className="pull-right account-options">
                                 <span>|</span>
-                                <a href="#" className="login">Sign In</a>
+                                <a href="" className="login">Sign In</a>
                             </div>
                         </div>
                     </div>
@@ -46,7 +50,7 @@ function Header() {
                         <span></span>
                         <span></span>
                     </span>
-                    <a href="./index.html" className="navbar-brand"><img src="images/logo.png" className="img-responsive"
+                    <a href="" className="navbar-brand"><img src="images/logo.png" className="img-responsive"
                         alt="" /></a>
 
                 </div>
@@ -76,7 +80,7 @@ function Header() {
                         {data?.map((category: Category) => (
                             <li key={category.id} className="dropdown dropdown-v2">
                                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">{category.name}</a>
+                                    aria-haspopup="true" aria-expanded="false">{capitalizeFirstLetter(category.name)}</a>
                             </li>
                         ))}
 

@@ -72,6 +72,12 @@ class ArticleListCreate(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class ArticleByCategory(APIView):
+    def get(self, request, category_name):
+        articles = Article.objects.filter(category__name=category_name)
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data)
+
 class MainArticleListView(APIView):
     def get(self, request, *args, **kwargs):
         articles = Article.objects.filter(is_main=True)
