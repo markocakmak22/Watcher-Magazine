@@ -16,7 +16,7 @@ class Article(models.Model):
     content_paragraph_4 = models.TextField(null=True, blank=True)
     category = models.ForeignKey(Category, related_name='articles', on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(null=True, blank=True)
+    image = models.CharField(max_length=200, null=True, blank=True)
     is_main = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
 

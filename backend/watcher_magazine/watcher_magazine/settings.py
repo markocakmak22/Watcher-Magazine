@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'articles'
+    'articles',
+    'corsheaders'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -52,7 +53,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+# Dozvoljava sve izvore (NE preporučuje se u produkciji)
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Ili, specifikujte dozvoljene domene (preporučuje se u produkciji)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    # Dodajte druge dozvoljene izvore
+]
+
+# Ako je potrebno dozvoliti specifična zaglavlja ili metode
+CORS_ALLOW_HEADERS = ['*']  # Dozvoljava sva zaglavlja
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']  # Dozvoljava sve metode
 
 ROOT_URLCONF = 'watcher_magazine.urls'
 
