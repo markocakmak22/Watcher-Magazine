@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 interface Category {
     id: number;
@@ -73,14 +74,16 @@ function Header() {
                 <div id="navbar" className="navbar-collapse collapse">
                     <ul className="nav navbar-nav">
                         <li className="dropdown dropdown-v2">
-                            <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">Home</a>
+                            <Link to={"/"} className="dropdown-toggle" role="button">
+                                Home
+                            </Link>
                         </li>
 
                         {data?.map((category: Category) => (
                             <li key={category.id} className="dropdown dropdown-v2">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">{capitalizeFirstLetter(category.name)}</a>
+                                <Link to={category.name} className="dropdown-toggle" role="button">
+                                    {capitalizeFirstLetter(category.name)}
+                                </Link>
                             </li>
                         ))}
 

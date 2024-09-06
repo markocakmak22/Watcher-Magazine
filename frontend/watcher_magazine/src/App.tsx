@@ -13,8 +13,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="wrapper">
-        <Header />
         <Router>
+          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:categoryName" element={<Category />} />
