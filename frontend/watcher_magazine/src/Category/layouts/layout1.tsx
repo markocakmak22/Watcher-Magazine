@@ -1,14 +1,12 @@
-import { ItemProps } from "../Content";
+import { Article } from "../../Types/types";
 import Item1 from "./items.tsx/item1";
 import Item2 from "./items.tsx/item2";
 
-
 interface Layout1Props {
-    sportArticles: ItemProps[]; // Definišeš da Layout1 prima niz članaka
+    sportArticles: Article[];
 }
 
-function Layout1({ sportArticles }: any) {
-
+function Layout1({ sportArticles }: Layout1Props) {
     return (
         <>
             <div className="col-md-6 col-sm-6 margin-bottom-30">

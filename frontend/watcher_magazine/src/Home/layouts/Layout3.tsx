@@ -1,16 +1,16 @@
-import { ItemProps } from "../Content";
-import Layout2Item from "./Layout2Item";
+import { Article } from "../../Types/types";
+import Layout2Item from "../items/Layout2Item";
 
-interface Layout2Props {
-    items: ItemProps[]; // Koristite ItemProps
+interface Layout3Props {
+    Articles: Article[];
 }
-function Layout3({ items }: Layout2Props) {
+function Layout3({ Articles }: Layout3Props) {
     return (
         <div className="layout_2 margin-bottom-20">
             <div className="row">
-                {items.map((item) => (
-                    <div className="col-md-3 col-sm-6" key={item.id}>
-                        <Layout2Item {...item} />
+                {Articles.map((Article) => (
+                    <div className="col-md-3 col-sm-6" key={Article.id}>
+                        <Layout2Item Article={Article} />
                     </div>
                 ))}
             </div>

@@ -1,91 +1,45 @@
 import { useEffect, useState } from 'react';
 import Layout1 from './layouts/Layout1';
 import Layout2 from "./layouts/Layout2";
-import Layout3 from './layouts/Layout3';
+import { Article } from '../Types/types';
 
-export interface ItemProps {
-    id: number;
-    image: string;
-    category: {
-        id: number;
-        name: string;
-    };
-    title: string;
-    link?: string;
-    date: string;
-    iconClass?: string;
-    comment_count: number;
-}
-
+const layoutConfigs = [
+    { key: 'sport', layout: Layout1 },
+    { key: 'travel', layout: Layout2 },
+    { key: 'technik', layout: Layout2 },
+];
 
 function Content() {
-    const [sportArticles, setSportArticles] = useState<ItemProps[]>([]);
-    const [travelArticles, setTravelArticles] = useState<ItemProps[]>([]);
-    const [technikArticles, setTechnikArticles] = useState<ItemProps[]>([]);
+    const [articles, setArticles] = useState<Record<string, Article[]>>({});
 
     useEffect(() => {
-        const fetchArticlesSport = async () => {
+        const fetchArticles = async (category: string) => {
             try {
-                const response = await fetch('http://localhost:8000/api/articles/sport', {});
+                const response = await fetch(`http://localhost:8000/api/articles/${category}`);
                 const data = await response.json();
-
-                setSportArticles(data); // Prvih 3 članka za prvi Layout2
+                setArticles(prevArticles => ({ ...prevArticles, [category]: data }));
             } catch (error) {
-                console.error('Greška prilikom učitavanja članaka:', error);
+                console.error(`Greška prilikom učitavanja članaka za ${category}:`, error);
             }
         };
 
-        const fetchArticlesTravel = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/api/articles/travel', {});
-                const data = await response.json();
+        layoutConfigs.forEach(({ key }) => {
+            fetchArticles(key);
+        });
+    }, []);
 
-                setTravelArticles(data); // Prvih 4 članka za drugi Layout2
-            } catch (error) {
-                console.error('Greška prilikom učitavanja članaka:', error);
-            }
-        };
-
-        const fetchArticlesTechnik = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/api/articles/technik', {});
-                const data = await response.json();
-
-                setTechnikArticles(data); // Prvih 4 članka za drugi Layout2
-            } catch (error) {
-                console.error('Greška prilikom učitavanja članaka:', error);
-            }
-        };
-
-        fetchArticlesSport();
-        fetchArticlesTravel();
-        fetchArticlesTechnik();
-    }, []); // Prazan niz zavisnosti znači da će se useEffect pokrenuti samo jednom
-
-    const Layout1Items = [
-        sportArticles[0] || null,   // Ako `items[0]` ne postoji, koristi `null`
-        sportArticles[1] || null,  // Ako `items2[0]` ne postoji, koristi `null`
-        sportArticles[2] || null,   // Ako `items3[0]` ne postoji, koristi `null`
-    ];
-
-    const Layout2Items = [
-        travelArticles[0] || null,   // Ako `items[0]` ne postoji, koristi `null`
-        travelArticles[1] || null,  // Ako `items2[0]` ne postoji, koristi `null`
-        travelArticles[2] || null,   // Ako `items3[0]` ne postoji, koristi `null`
-    ];
-
-    const Layout3Items = [
-        technikArticles[0] || null,   // Ako `items[0]` ne postoji, koristi `null`
-        technikArticles[1] || null,  // Ako `items2[0]` ne postoji, koristi `null`
-        technikArticles[2] || null,   // Ako `items3[0]` ne postoji, koristi `null`
-        technikArticles[3] || null   // Ako `items3[0]` ne postoji, koristi `null`
-    ];
+    const getLayoutItems = (index: number) => {
+        return layoutConfigs.map(({ key }) => articles[key]?.[index] || null).filter(Boolean);
+    };
 
     return (
         <div className="col-md-8 col-sm-8">
-            <Layout1 items={Layout1Items.filter(item => item !== null)} />
-            <Layout2 items={Layout2Items.filter(item => item !== null)} />
-            <Layout3 items={Layout3Items.filter(item => item !== null)} />
+            {layoutConfigs.map(({ layout: Layout }, index) => (
+                <Layout
+                    key={index}
+                    Articles={getLayoutItems(index)}
+                />
+            ))}
         </div>
     );
 }

@@ -305,19 +305,7 @@ function Aside() {
                     </ul>
                 </div>
             </div>
-            <div className="side-widget margin-bottom-60">
-                <h3 className="heading-1"><span>Newsletter</span></h3>
-                <div className="side-newsletter2">
-                    <p>Important stories from around the world.</p>
-                    <form id="invite" method="POST">
-                        <i className="fa fa-envelope"></i>
-                        <input type="email" placeholder="Email address" className="e-mail" name="email" id="address"
-                            data-validate="validate(required, email)" />
-                        <button type="submit">Go</button>
-                    </form>
-                    <div id="result"></div>
-                </div>
-            </div>
+
 
         </aside>
     )
