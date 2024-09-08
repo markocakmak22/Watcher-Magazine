@@ -16,10 +16,11 @@ function Layout2Item({ Article }: Layout1Props) {
                 )}
             </div>
             <span className="cat">{Article.category.name}</span>
-            <h4>{Article.link ? <a href={Article.link}>{Article.title}</a> : Article.title}</h4>
+            <h4>
+                <a href={"#"}>{Article?.title}</a>
+            </h4>
             <div className="meta">
-                <span className="date">{Article.date}</span>
-                {Article.comment_count && <span className="comments">{Article.comment_count}</span>}
+                <span className="comments">{Article.comment_count} comments</span>
             </div>
         </div>
     );

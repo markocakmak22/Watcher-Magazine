@@ -1,5 +1,5 @@
 import Content from "./Content"
-import Aside from "../Layout/Aside"
+import Aside from "../ui/Aside/Aside"
 
 function Category() {
     return (

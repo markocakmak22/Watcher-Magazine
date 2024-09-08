@@ -2,9 +2,12 @@ import { Article } from "../../Types/types";
 
 interface Layout1Props {
     Article: Article;
+    isFirstItem?: boolean;
 }
 
-function Layout1Item({ Article }: Layout1Props) {
+function Layout1Item({ Article, isFirstItem = false }: Layout1Props) {
+    const TitleTag = isFirstItem ? 'h4' : 'h5';
+
     return (
         <div className="layout_1--item">
             <a href="./post_page_01.html">
@@ -12,10 +15,10 @@ function Layout1Item({ Article }: Layout1Props) {
                 <div className="overlay"></div>
                 <img src={"images/home/01/" + Article?.image} className="img-responsive" alt={Article?.title} />
                 <div className="layout-detail padding-25">
-                    <h4>{Article?.title}</h4>
+                    <TitleTag><a style={{ color: "white" }} href={"#"}>{Article?.title}</a></TitleTag>
                     <div className="meta">
                         <span className="date">{Article?.date}</span>
-                        <span className="comments">{Article?.comment_count}</span>
+                        <span className="comments">{Article?.comment_count} comments</span>
                     </div>
                 </div>
             </a>

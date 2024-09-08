@@ -1,20 +1,26 @@
-function Item2({ sportArticles }: any) {
+import { Article } from "../../../Types/types";
+
+interface Item2Props {
+    article: Article;
+}
+
+function Item2({ article }: Item2Props) {
     return (
-        <div className="layout_2--item row">
+        <div style={{ paddingBottom: "20px" }} className="layout_2--item row">
             <div className="col-md-6">
                 <div className="thumb">
                     <div className="icon-24 video2"></div>
                     <a href="">
-                        <img src={"images/home/01/" + sportArticles?.image} className="img-responsive" alt="" />
+                        <img src={"images/home/01/" + article?.image} className="img-responsive" alt="" />
                     </a>
                 </div>
             </div>
             <div className="col-md-6">
                 <h4>
-                    <a href={"#"}>{sportArticles?.title}</a>
+                    <a href={"#"}>{article?.title}</a>
                 </h4>
                 <div className="meta">
-                    <span className="comments">5 comments</span> {/* Ispravi za komentare */}
+                    <span className="comments">{article.comment_count} comments</span>
                 </div>
             </div>
         </div>

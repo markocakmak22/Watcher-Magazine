@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useQueries } from '@tanstack/react-query';
 import Layout1 from './layouts/Layout1';
 import Layout2 from "./layouts/Layout2";
 import { Article } from '../Types/types';
+import { fetchArticlesByCategory } from '../Api/api';
 
 const layoutConfigs = [
     { key: 'sport', layout: Layout1 },
@@ -10,26 +11,32 @@ const layoutConfigs = [
 ];
 
 function Content() {
-    const [articles, setArticles] = useState<Record<string, Article[]>>({});
+    const queries = useQueries({
+        queries: layoutConfigs.map(({ key }) => ({
+            queryKey: ['articles', key],
+            queryFn: () => fetchArticlesByCategory(key),
+            staleTime: 30 * 60 * 1000, // Podaci su sveži 30 minuta
+            refetchOnWindowFocus: true,
+            refetchOnReconnect: true,
+            enabled: !!key, // Omogućava upit samo ako je key prisutan
+        })),
+    });
 
-    useEffect(() => {
-        const fetchArticles = async (category: string) => {
-            try {
-                const response = await fetch(`http://localhost:8000/api/articles/${category}`);
-                const data = await response.json();
-                setArticles(prevArticles => ({ ...prevArticles, [category]: data }));
-            } catch (error) {
-                console.error(`Greška prilikom učitavanja članaka za ${category}:`, error);
-            }
-        };
+    if (queries.some(query => query.isLoading)) {
+        return <p>Loading...</p>;
+    }
 
-        layoutConfigs.forEach(({ key }) => {
-            fetchArticles(key);
-        });
-    }, []);
+    if (queries.some(query => query.isError)) {
+        return <p>Error loading articles</p>;
+    }
+
+    const articlesData = layoutConfigs.reduce((acc, { key }, index) => {
+        acc[key] = queries[index].data || [];
+        return acc;
+    }, {} as Record<string, Article[]>);
 
     const getLayoutItems = (index: number) => {
-        return layoutConfigs.map(({ key }) => articles[key]?.[index] || null).filter(Boolean);
+        return layoutConfigs.map(({ key }) => articlesData[key]?.[index] || null).filter(Boolean);
     };
 
     return (

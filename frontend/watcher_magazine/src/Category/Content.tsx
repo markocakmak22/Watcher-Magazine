@@ -1,41 +1,42 @@
 import Layout1 from "./layouts/layout1";
-import { useState, useEffect } from "react";
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from "react-router-dom";
 import { Article } from "../Types/types";
-
+import { fetchArticlesByCategory } from "../Api/api";
 
 function Content() {
-    const [sportArticles, setSportArticles] = useState<Article[]>([]);
-    const { categoryName } = useParams(); // Uzmi categoryName iz URL-a
+    const { categoryName } = useParams();
 
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const response = await fetch(`http://localhost:8000/api/articles/${categoryName}`);
-                const data = await response.json();
+    const { data: articles = [], isError, isLoading } = useQuery<Article[], Error>({
+        queryKey: ['articles', categoryName],
+        queryFn: () => fetchArticlesByCategory(categoryName || ''),
+        enabled: !!categoryName,
+        staleTime: 30 * 60 * 1000,
 
-                setSportArticles(data.slice(0, 6));
-            } catch (error) {
-                console.error('Greška prilikom učitavanja članaka:', error);
-            }
-        };
+        refetchOnWindowFocus: true,
+        refetchOnMount: false,
+        refetchOnReconnect: true,
+    });
 
-        if (categoryName) {
-            fetchArticles();
-        }
-    }, [categoryName]);
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
 
-    const firstThreeArticles = sportArticles.slice(0, 3);
-    const secondThreeArticles = sportArticles.slice(3, 6);
+    if (isError) {
+        return <p>Error loading articles</p>;
+    }
+
+    const firstThreeArticles = articles.slice(0, 3);
+    const secondThreeArticles = articles.slice(3, 6);
 
     return (
         <div className="col-md-8 col-sm-8">
             <div className="layout_3">
                 <div className="row">
-                    {sportArticles.length > 0 && (
+                    {articles.length > 0 && (
                         <>
-                            <Layout1 sportArticles={firstThreeArticles} />
-                            <Layout1 sportArticles={secondThreeArticles} />
+                            <Layout1 articles={firstThreeArticles} />
+                            <Layout1 articles={secondThreeArticles} />
                         </>
                     )}
                 </div>
